@@ -1,0 +1,148 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ITMD-565 Lab 4 - Canvas Drawing</title>
+	<style type="text/css">
+		#content-wrapper {
+			width: 600px;
+			margin: 0 auto;
+			text-align: center;
+		}
+		#canvasRun {
+			background-color: #c00;
+			border: 0;
+			color: #fff;
+		}
+	</style>
+</head>
+<body>
+	<div id="content-wrapper">
+		<button id="canvasRun">Draw Canvas</button><br><br>
+		<canvas id="myCanvas" width="600" height="450"></canvas>
+	</div>
+	<script type="text/javascript">
+		// Canvas Drawing Code Here
+		
+		function drawCanvas() {
+
+			var vas = document.getElementById('myCanvas');
+
+			if (vas.getContext) {
+			
+				var cont = vas.getContext('2d');
+				var i = 0;
+				setInterval(rotate, 20);
+				function rotate() {
+					i++;
+
+					// fix uni image
+    	        var unipic = new Image();
+    	        unipic.src = "IIT_SAT_stack_186_white.jpg";
+    	        unipic.addEventListener('load', function() {
+
+    	        	cont.drawImage(unipic, 320, 370, 270, 70);
+
+    	        }, false);
+				//background gradient
+				var gradline = cont.createLinearGradient(0,0,0,500);
+				gradline.addColorStop(1,'black');
+				gradline.addColorStop(0,'white');
+				cont.fillStyle = gradline;
+				cont.fillRect(0,0,600,450);
+
+
+				//Display title
+				cont.font = "bold 32px sans-serif";
+				cont.fillStyle = '#C80000'; 
+				cont.fillText("ITMD 565 Canvas Lab", 290,35);
+				cont.textAlign = "center";
+				
+				//draw line as separator
+				cont.beginPath();
+            	cont.lineWidth = 4;
+            	cont.strokeStyle = '#C80000';
+            	cont.moveTo(5,50);
+            	cont.lineTo(595,50);
+            	cont.stroke();
+            	cont.closePath();
+
+            	//draw circle
+            	cont.beginPath();
+            	cont.arc(115, 135, 55, 0, 2 * Math.PI, false);
+            	cont.lineWidth = 3;
+            	cont.strokeStyle = 'white';
+            	cont.fillStyle = '#0000C8';
+            	cont.fill();
+            	
+            	cont.stroke();
+            	cont.closePath();
+
+            	//draw triangle
+            	cont.beginPath();
+            	cont.moveTo(110,260);
+            	cont.lineTo(180,350);
+            	cont.lineTo(40,350);
+            	cont.lineTo(110,260);
+        	    cont.fillStyle = "#00C800";
+    	        cont.fill();
+	            cont.closePath();
+
+	            //rectangle
+	           cont.save();
+				cont.translate(500,165);
+				cont.rotate(i * (Math.PI/180));
+				cont.beginPath();
+				cont.rect(-60, -60, 120, 120);
+				cont.strokeStyle = "white";
+				cont.lineWidth = 6;
+				cont.fillStyle = "#C80000";
+				cont.fill();
+				cont.stroke();
+				cont.closePath();
+				cont.restore();
+
+				//draw dotted-wave
+				cont.beginPath();
+            	//cont.strokeRect(280, 260, 300, 90);
+            	cont.fillStyle = "white";
+            	cont.fillRect(280, 260, 300, 90);
+            	//cont.setLineDash([150, 10]);
+            	cont.moveTo(300, 300);
+            	cont.bezierCurveTo(400,180,450,430,550,300);
+            	cont.strokeStyle = 'black';
+            	cont.lineWidth = 2;
+        	    cont.stroke();
+    	        cont.closePath();
+
+    	        //draw Arc
+    	        cont.save();
+    	        cont.beginPath();   
+            	cont.translate(300,160);
+            	cont.rotate(i*(Math.PI/180)*10);
+            	cont.lineWidth = 16;
+            	cont.strokeStyle = "#FFA500";
+            	cont.arc(0,0,50, 3 * (Math.PI / 2), (Math.PI / 3));
+        	    cont.stroke();  
+            	cont.restore();
+
+    	        //affix name stamp
+    	        cont.beginPath();
+    	        cont.font = "14px sans-serif";
+    	        cont.fillText("Manish Kaujalgi", 70, 410);
+	            cont.fillText("mmukundkaujalgi@hawk.iit.edu", 118, 425);
+
+    	        
+
+    	    }
+			}
+			draw.disabled = true;
+		}
+
+		var draw=document.getElementById('canvasRun')
+		draw.addEventListener('click', drawCanvas, false);
+
+	</script>
+</body>
+</html>
